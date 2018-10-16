@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Erregistratu</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="dismiss()">Itxi</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="registrationFormGroup" (ngSubmit)="onSubmitRegisterDetails(registrationFormGroup.value)">
+    <ion-item>
+      <ion-label color="primary" stacked>Erabiltzaile izena</ion-label>
+      <ion-input type="text" placeholder="Erabiltzaile izena" formControlName="username" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Email</ion-label>
+      <ion-input type="email" placeholder="zureposta@gmail.com" formControlName="email" required></ion-input>
+    </ion-item>
+    <div [formGroup]="passwordFormGroup">
+      <ion-item>
+        <ion-label color="primary" stacked>Pasahitza</ion-label>
+        <ion-input type="password" placeholder="Zure pasahitza" formControlName="password" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Ziurtatu pasahitza</ion-label>
+        <ion-input type="password" placeholder="Ziurtatu zure pasahitza" formControlName="repeatPassword" required></ion-input>
+      </ion-item>
+    </div>
+    <br><br><br>
+
+    <p *ngIf="registrationFormGroup.controls.username.errors?.required && registrationFormGroup.controls.username.touched">Izena
+      beharrezkoa da</p>
+    <p *ngIf="registrationFormGroup.controls.email.errors?.required && registrationFormGroup.controls.email.touched">ePosta
+      beharrezkoa da</p>
+
+    <p *ngIf="passwordFormGroup.controls.password.errors?.required && passwordFormGroup.controls.password.touched">
+      Pasahitza beharrezkoa da.</p>
+    <p *ngIf="passwordFormGroup.controls.repeatPassword.errors?.required && passwordFormGroup.controls.repeatPassword.touched">
+      Pasahitza errepikatzea beharrezkoa da</p>
+    <p *ngIf="passwordFormGroup.errors?.doesMatchPassword">Pasahitzak ez dira berdinak</p>
+
+    {{registrationFormGroup.valid}}
+
+    <button color="primary" ion-button type="submit" full round large [disabled]="!registrationFormGroup.valid">Erregistratu</button>
+  </form>
+</ion-content>
